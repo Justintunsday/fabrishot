@@ -93,6 +93,12 @@ public class Fabrishot {
         }
     }
 
+    public static void cancelCapture() {
+        if (task != null) {
+            finishCapture();
+        }
+    }
+
     private static void finishCapture() {
         CaptureTask previousTask = task;
         task = null;

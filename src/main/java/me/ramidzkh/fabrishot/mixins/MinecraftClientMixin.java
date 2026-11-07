@@ -38,4 +38,9 @@ public class MinecraftClientMixin {
     private void postRender(CallbackInfo callbackInfo) {
         Fabrishot.onRenderPreOrPost();
     }
+
+    @Inject(method = "disconnect(Lnet/minecraft/client/gui/screens/Screen;ZZ)V", at = @At("HEAD"))
+    private void cancelCaptureOnDisconnect(CallbackInfo callbackInfo) {
+        Fabrishot.cancelCapture();
+    }
 }
