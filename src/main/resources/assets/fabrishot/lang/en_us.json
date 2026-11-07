@@ -11,5 +11,6 @@
   "fabrishot.config.delay": "Capture delay",
   "fabrishot.config.delay.tooltip": "Frames to wait after resizing. Tweak for better exposure with shaders",
   "fabrishot.config.file_format": "File format",
+  "fabrishot.capture.uhd_wait": "Fabrishot is rendering at 4K. The screenshot will be taken after 60 seconds.",
   "key.fabrishot.screenshot": "Take large screenshot"
 }

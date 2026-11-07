@@ -12,5 +12,6 @@
   "fabrishot.config.delay": "截图延迟",
   "fabrishot.config.delay.tooltip": "图像尺寸调整完毕后，在截图前需要等待的帧数。\n在使用光影时，若想在截图时获得更好的曝光效果，则需要调整该值。",
   "fabrishot.config.file_format": "文件格式",
+  "fabrishot.capture.uhd_wait": "Fabrishot 已开始以 4K 渲染，60 秒后截图。",
   "key.fabrishot.screenshot": "截图（高分辨率）"
 }

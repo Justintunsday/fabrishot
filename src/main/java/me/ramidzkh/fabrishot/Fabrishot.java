@@ -66,15 +66,38 @@ public class Fabrishot {
     public static void startCapture() {
         if (task == null) {
             task = new CaptureTask(getScreenshotFile(Minecraft.getInstance()));
-            refresh();
+            boolean resized = false;
+            try {
+                refresh();
+                resized = true;
+            } finally {
+                if (!resized) {
+                    finishCapture();
+                }
+            }
         }
     }
 
     public static void onRenderPreOrPost() {
-        if (task != null && task.onRenderTick()) {
-            task = null;
-            refresh();
+        if (task == null) {
+            return;
         }
+
+        boolean finished = true;
+        try {
+            finished = task.onRenderTick();
+        } finally {
+            if (finished) {
+                finishCapture();
+            }
+        }
+    }
+
+    private static void finishCapture() {
+        CaptureTask previousTask = task;
+        task = null;
+        previousTask.restoreHud();
+        refresh();
     }
 
     private static void refresh() {
@@ -121,5 +144,13 @@ public class Fabrishot {
 
     public static boolean isInCapture() {
         return task != null;
+    }
+
+    public static int captureWidth() {
+        return task.width();
+    }
+
+    public static int captureHeight() {
+        return task.height();
     }
 }

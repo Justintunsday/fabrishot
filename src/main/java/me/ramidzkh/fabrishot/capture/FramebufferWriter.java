@@ -26,6 +26,7 @@ package me.ramidzkh.fabrishot.capture;
 
 import com.mojang.blaze3d.platform.NativeImage;
 import me.ramidzkh.fabrishot.config.Config;
+import me.ramidzkh.fabrishot.config.FileFormat;
 import me.ramidzkh.fabrishot.event.ScreenshotSaveCallback;
 import org.lwjgl.stb.STBIWriteCallback;
 import org.lwjgl.stb.STBImageWrite;
@@ -41,9 +42,13 @@ import java.nio.file.StandardOpenOption;
 public class FramebufferWriter {
 
     public static void write(NativeImage image, Path file) throws IOException {
+        write(image, file, Config.CAPTURE_FILE_FORMAT);
+    }
+
+    static void write(NativeImage image, Path file, FileFormat fileFormat) throws IOException {
         try (FileChannel fc = FileChannel.open(file, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
              WriteCallback callback = new WriteCallback(fc)) {
-            switch (Config.CAPTURE_FILE_FORMAT) {
+            switch (fileFormat) {
                 case PNG -> STBImageWrite.nstbi_write_png_to_func(callback.address(), 0L, image.getWidth(), image.getHeight(), image.format().components(), image.getPointer(), 0);
                 case JPG -> STBImageWrite.nstbi_write_jpg_to_func(callback.address(), 0L, image.getWidth(), image.getHeight(), image.format().components(), image.getPointer(), 90);
                 case TGA -> STBImageWrite.nstbi_write_tga_to_func(callback.address(), 0L, image.getWidth(), image.getHeight(), image.format().components(), image.getPointer());
